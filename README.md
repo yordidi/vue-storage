@@ -23,7 +23,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## 自动保存因意外退出而未来得及提交的注册信息
 
-###必要条件
+### 必要条件
 * 未提交。提交过的注册信息不予保存
 * 意外退出。正常退出的注册信息不予保存
 

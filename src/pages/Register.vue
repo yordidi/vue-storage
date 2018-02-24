@@ -36,6 +36,7 @@
 </template>
 
 <script>
+  import store from 'store2'
 	export default {
 	   data() {
 	    return {
@@ -44,30 +45,50 @@
 		       name: '',
 		       food: null,
 		       checked: false,
-		       secret: 'S3CR3T'
+		       secret: 'S3CR3T',
+           food: null
 		     },
 		     foods: [
 		       { text:'Select One', value:null },
 		       'Carrots','Beans','Tomatoes','Corn'
-		     ]
+		     ],
+         isSended: false
 	   	}
 	   },
 	   methods: {
 	     onSubmit(evt) {
 	       evt.preventDefault();
+         this.isSended = true;
 	       alert(JSON.stringify(this.form));
 	     }
 	   },
+
 	   //路由离开钩子
 	   beforeRouteLeave(to, from, next) {
-	   		
+      if (this.isSended) {
+        // 已经保存过信息，不做处理
+        next(true)
+      } else {
+        // 有未保存的信息，提醒是否确定离开，并在用户离开后，存储信息
+        const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+        if (answer) {
+          store.session('form', this.form)
+          next(true)
+        } else {
+          next(false)
+        }
+      }
+
 	   },
 	   //路由进入钩子
 	   beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.form = store.session('form')
+      })
+	   },
 
-	   }
 	};
-	
+
 </script>
 
 <style>

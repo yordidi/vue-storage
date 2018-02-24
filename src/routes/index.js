@@ -1,10 +1,11 @@
 /*
  * Import .vue components
  */
-import App from '../App.vue'
-import Register from '../pages/Register.vue'
-import Login from '../pages/Login.vue'
-import NotFoundComponent from '../pages/NotFoundComponent.vue'
+import App from '@/App.vue'
+import Register from '@/pages/Register.vue'
+import Login from '@/pages/Login.vue'
+import Home from '@/pages/Home.vue'
+import NotFoundComponent from '@/pages/NotFoundComponent.vue'
 
 /*
  * Define routes
@@ -17,8 +18,13 @@ const routes = [
 			//地址为空，跳转register页
 			{
 				path: '',
-				redirect: '/register'
+				redirect: '/home'
 			},
+      // 欢迎
+      {
+        path: '/home',
+        component: Home
+      },
 			// 注册页面
 			{
 				path: '/register',
